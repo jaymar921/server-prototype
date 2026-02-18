@@ -47,9 +47,9 @@ app.use(compression()); // compress all routes
 app.use("/api/v1/account", v1AccountRouter);
 app.use("/api/v1/auth", v1AuthenticationRouter);
 app.use("/api/v1/card", authenticateAdmin, v1CardRouter);
-app.use("/api/v1/device", authenticateOperator, v1IPWP_TR_Device_Router);
+app.use("/api/v1/device", v1IPWP_TR_Device_Router);
 app.use("/api/v1/tracker", v1IPWP_TR_LocateDevice_Router);
-app.use("/api/v1/route", authenticateAdmin, v1MapRouteRouter);
+app.use("/api/v1/route", v1MapRouteRouter);
 app.use("/api/v1/wallet", authenticateUser, v1WalletRouter);
 
 // set dns for mongodb
