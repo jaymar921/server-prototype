@@ -161,6 +161,8 @@ export const updateIPWP_LocateDevice = async (req, res) => {
     lat: lat,
     long: long,
     speed: speed,
+    prev_lat: device_location.lat,
+    prev_long: device_location.long,
     activity: "ONLINE",
     last_ping: Date.now(),
   };

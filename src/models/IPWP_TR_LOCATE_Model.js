@@ -36,6 +36,14 @@ const IPWP_TR_LOCATE_Schema = new Schema({
   last_ping: {
     type: Date,
   },
+  prev_lat: {
+    type: Number,
+    required: false,
+  },
+  prev_long: {
+    type: Number,
+    required: false,
+  },
 });
 
 export default mongoose.model("IPWP_TR_LOCATE", IPWP_TR_LOCATE_Schema);
