@@ -130,7 +130,7 @@ export const updateIPWP_LocateDevice = async (req, res) => {
       .json({ message: "Request body is required." });
   }
 
-  const { uid, lat = 0, long = 0, speed = 0 } = req.body;
+  const { uid, lat = 0, long = 0, speed = 0, metadata = "{}" } = req.body;
 
   if (!uid) {
     return res
@@ -163,6 +163,7 @@ export const updateIPWP_LocateDevice = async (req, res) => {
     speed: speed,
     prev_lat: device_location.lat,
     prev_long: device_location.long,
+    metadata: JSON.stringify(metadata),
     activity: "ONLINE",
     last_ping: Date.now(),
   };
