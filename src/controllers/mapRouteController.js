@@ -139,7 +139,7 @@ export const deleteRoute = async (req, res) => {
 
   const { uid, groupname } = req.body;
 
-  if (!uid || !groupname) {
+  if (!uid && !groupname) {
     return res.status(StatusCodes.BAD_REQUEST).json({
       message: "UID/Groupname is required.",
     });
