@@ -137,18 +137,20 @@ export const deleteRoute = async (req, res) => {
       .json({ message: "Request body is required." });
   }
 
-  const { uid } = req.body;
+  const { uid, groupname } = req.body;
 
-  if (!uid) {
+  if (!uid || !groupname) {
     return res.status(StatusCodes.BAD_REQUEST).json({
-      message: "UID is required.",
+      message: "UID/Groupname is required.",
     });
   }
 
   try {
-    const deleted_route = await MapRoutingNode.findOneAndDelete({ uid });
+    const deleted_route = uid
+      ? await MapRoutingNode.deleteMany({ uid })
+      : await MapRoutingNode.deleteMany({ groupname });
 
-    if (!deleted_route) {
+    if (!deleted_route.acknowledged) {
       return res.status(StatusCodes.NOT_FOUND).json({
         message: "Map route was not found. Could not execute delete operation.",
       });
