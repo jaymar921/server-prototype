@@ -6,14 +6,13 @@ import {
   getMapRoute,
   updateRoute,
 } from "../controllers/mapRouteController.js";
-import { authenticateAdmin } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
 router.get("/", getAllMapRoutes);
-router.get("/get_route", authenticateAdmin, getMapRoute);
-router.post("/add", authenticateAdmin, addRoute);
-router.post("/update", authenticateAdmin, updateRoute);
-router.delete("/", authenticateAdmin, deleteRoute);
+router.get("/get_route", getMapRoute);
+router.post("/add", addRoute);
+router.post("/update", updateRoute);
+router.delete("/", deleteRoute);
 
 export default router;

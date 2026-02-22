@@ -14,6 +14,7 @@ import v1IPWP_TR_Device_Router from "./src/routes/ipwpDeviceRouter.js";
 import v1IPWP_TR_LocateDevice_Router from "./src/routes/ipwpDeviceLocateRouter.js";
 import v1MapRouteRouter from "./src/routes/mapRouteRouter.js";
 import v1WalletRouter from "./src/routes/walletRouter.js";
+import v1MobileApiRouter from "./src/routes/apiRouter.js";
 
 // Import Database
 import database from "./src/database/MongoDB.js";
@@ -21,6 +22,7 @@ import database from "./src/database/MongoDB.js";
 // import middlewares
 import {
   authenticateAdmin,
+  authenticateAPIKeys,
   authenticateOperator,
   authenticateUser,
 } from "./src/middlewares/authMiddleware.js";
@@ -47,10 +49,12 @@ app.use(compression()); // compress all routes
 app.use("/api/v1/account", v1AccountRouter);
 app.use("/api/v1/auth", v1AuthenticationRouter);
 app.use("/api/v1/card", authenticateAdmin, v1CardRouter);
-app.use("/api/v1/device", v1IPWP_TR_Device_Router);
-app.use("/api/v1/tracker", v1IPWP_TR_LocateDevice_Router);
-app.use("/api/v1/route", v1MapRouteRouter);
+app.use("/api/v1/device", authenticateOperator, v1IPWP_TR_Device_Router);
+app.use("/api/v1/tracker", authenticateUser, v1IPWP_TR_LocateDevice_Router);
+app.use("/api/v1/route", authenticateAdmin, v1MapRouteRouter);
 app.use("/api/v1/wallet", authenticateUser, v1WalletRouter);
+// api routers
+app.use("/api/v1/public", authenticateAPIKeys, v1MobileApiRouter);
 
 // set dns for mongodb
 dns.setServers(["1.1.1.1", "8.8.8.8"]);

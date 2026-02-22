@@ -6,17 +6,14 @@ import {
   getIPWP_LocateDevices,
   updateIPWP_LocateDevice,
 } from "../controllers/ipwpTRLocateDeviceController.js";
-import {
-  authenticateOperator,
-  authenticateUser,
-} from "../middlewares/authMiddleware.js";
+import { authenticateOperator } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
 router.get("/", getIPWP_LocateDevices);
-router.get("/get_location", getIPWP_LocateDevice);
+router.get("/get_location", authenticateOperator, getIPWP_LocateDevice);
 router.post("/register", authenticateOperator, createIPWP_TR_LOCATE_Device);
-router.post("/update", updateIPWP_LocateDevice); // TODO: Secure this!!! This is not secure but will work on it soon
+router.post("/update", authenticateOperator, updateIPWP_LocateDevice);
 router.delete("/", authenticateOperator, deleteIPWP_LocateDevice);
 
 export default router;
