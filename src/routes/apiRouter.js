@@ -8,7 +8,8 @@ import { getAllMapRoutes } from "../controllers/mapRouteController.js";
 
 const router = Router();
 
-router.post("/device/update", updateIPWP_LocateDevice);
+// router.post("/device/update", updateIPWP_LocateDevice);
+router.post("tracker/update", updateIPWP_LocateDevice);
 router.get("/tracker", getIPWP_LocateDevices);
 router.get("/tracker/get_location", getIPWP_LocateDevice);
 router.get("/route", getAllMapRoutes);
