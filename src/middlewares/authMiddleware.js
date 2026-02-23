@@ -87,7 +87,9 @@ export const authenticateOperator = async (req, res, next) => {
 
 export const authenticateAPIKeys = async (req, res, next) => {
   try {
-    const api_key = (req.headers["authorization"] ?? "").split(" ")[1]; // automatically throws error if parsing fails
+    let api_key = req.query?.api_key ?? null;
+
+    if (!api_key) api_key = (req.headers["authorization"] ?? "").split(" ")[1]; // automatically throws error if parsing fails
 
     // TODO: Make api keys available to be modified via admin dashboard
     if (api_key.toUpperCase() !== config.DEFAULT_API_KEY.toUpperCase())
